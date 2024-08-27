@@ -21,12 +21,12 @@ class PaymentRequest
     #[Assert\NotBlank]
     #[Assert\Type(type: 'integer')]
     #[Assert\Length(min: 4, max: 4)]
-    public ?string $cardExpYear;
+    public ?int $cardExpYear;
 
     #[Assert\NotBlank]
     #[Assert\Type(type: 'integer')]
     #[Assert\Length(min: 2, max: 2)]
-    public ?string $cardExpMonth;
+    public ?int $cardExpMonth;
 
     #[Assert\NotBlank]
     #[Assert\Type(type: 'integer')]

@@ -2,15 +2,13 @@
 
 namespace App\Controller;
 
+use App\Dto\Request\PaymentRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Dto\Request\PaymentRequest;
-use App\Exceptions\ValidationException;
 use App\Services\Responses\ApiResponseBuilder;
-use Symfony\Component\Validator\ConstraintViolationList;
-use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 class PaymentsController extends AbstractController
 {
@@ -31,14 +29,9 @@ class PaymentsController extends AbstractController
 	 * @return JsonResponse
 	 */
 
-  public function process(string $system, PaymentRequest $request): JsonResponse
+  public function process(string $system, PaymentRequest $request): Response
   {
-
-	 	return new JsonResponse([
-			'test'=> 'test'
-		], 422, ['Content-Type' => 'application/json']);
    	try {
-    	// make payment
 
     } catch (\Exception $e) {
         // Catch other exceptions

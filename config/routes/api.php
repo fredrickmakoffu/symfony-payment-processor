@@ -7,9 +7,9 @@
 
 	$routes->add('example_route', new Route('/app/example/{system}', [
     '_controller' => 'App\Controller\PaymentsController::process',
-	], [
-	   'system' => 'aci|shift4' // Restricting the parameter to specific values
-	]));
+], [
+    'system' => 'aci|shift4', // Restricting the parameter to specific values
+], [], '', [], ['POST'])); // Restricting the route to POST method
 
 	return $routes;
 ?>
