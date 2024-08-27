@@ -3,14 +3,15 @@
 namespace App\Exceptions;
 
 use Exception;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 class ValidationException extends Exception
 {
   private $errors;
 
   public function __construct(
-  	array $errors = [],
-  	string $message = 'We\'ve found some errors with the data you\'ve submitted',
+  	ConstraintViolationList $errors,
+  	string $message = "We have found some errors with the data you have submitted",
     int $code = 0,
     Exception $previous = null
   )
@@ -26,7 +27,16 @@ class ValidationException extends Exception
     */
   public function getErrors(): array
   {
-    return $this->errors;
+  	$formattedErrors = [];
+
+	  foreach ($this->errors as $error) {
+	      $formattedErrors[] = [
+	          'field' => $error->getPropertyPath(),
+	          'message' => $error->getMessage(),
+	      ];
+	  }
+
+	  return $formattedErrors;
   }
 
   public function getValidationMessage(): string

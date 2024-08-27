@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Services\Helpers;
+namespace App\Services\Responses;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Dto\ApiResponse;
-use App\Dto\Helpers\ErrorApiResponse;
-use App\Dto\Helpers\SuccessApiResponse;
+use App\Dto\Responses\ErrorApiResponse;
+use App\Dto\Responses\SuccessApiResponse;
 
 class ApiResponseBuilder
 {
+	const headers = [
+		'Content-Type' => 'application/json'
+	];
+
   public function success(string $message, array $data = null, $httpStatusCode = JsonResponse::HTTP_OK): JsonResponse
   {
     return new JsonResponse(
     	new SuccessApiResponse($message, $data),
-     	$httpStatusCode
+     	$httpStatusCode,
+      self::headers
     );
   }
 
@@ -21,7 +26,8 @@ class ApiResponseBuilder
   {
     return new JsonResponse(
     	new ErrorApiResponse($message, $errors),
-     	$httpStatusCode
+     	422,
+      self::headers
     );
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dto\Helpers;
+namespace App\Dto\Responses;
 
 class ErrorApiResponse
 {
