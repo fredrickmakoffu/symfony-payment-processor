@@ -5,6 +5,7 @@ namespace App\ArgumentResolvers;
 use App\Dto\Request\PaymentRequest;
 use App\Exceptions\ValidationException;
 use App\Services\Responses\ApiResponseBuilder;
+use App\Services\Validations\PaymentValidationService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class PaymentRequestResolver implements ArgumentValueResolverInterface
 {
-  public function __construct(private ApiResponseBuilder $responseBuilder, private ValidatorInterface $validator)
+  public function __construct(private ApiResponseBuilder $responseBuilder, private ValidatorInterface $validator, private PaymentValidationService $paymentValidation)
   {}
 
   public function supports(Request $request, ArgumentMetadata $argument): bool
@@ -23,17 +24,14 @@ class PaymentRequestResolver implements ArgumentValueResolverInterface
 
   public function resolve(Request $request, ArgumentMetadata $argument): iterable
   {
-	  // Create a PaymentRequest DTO from the request
-	  $paymentRequest = new PaymentRequest();
-	  $paymentRequest->amount = $request->query->get('amount');
-	  $paymentRequest->currency = $request->query->get('currency');
-	  $paymentRequest->cardNumber = $request->query->get('cardNumber');
-	  $paymentRequest->cardExpYear = $request->query->get('cardExpYear');
-	  $paymentRequest->cardExpMonth = $request->query->get('cardExpMonth');
-	  $paymentRequest->cardCvv = $request->query->get('cardCvv');
+  	// Get the payment data from the request
+  	$payment_data = $request->query->all();
 
-	  // Validate the PaymentRequest DTO
-	  $errors = $this->validator->validate($paymentRequest);
+   	// Validate the PaymentRequest DTO
+   	$errors = $this->paymentValidation->handle($payment_data);
+
+    // get the payment request
+    $paymentRequest = $this->paymentValidation->getPaymentRequest();
 
 	  // If there are validation errors, throw an exception
 	  if (count($errors) > 0) throw new ValidationException($errors);
