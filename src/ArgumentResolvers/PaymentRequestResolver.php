@@ -31,7 +31,7 @@ class PaymentRequestResolver implements ArgumentValueResolverInterface
    	$errors = $this->paymentValidation->handle($payment_data);
 
     // get the payment request
-    $paymentRequest = $this->paymentValidation->getPaymentRequest();
+    $paymentRequest = $this->paymentValidation->getValidatedDto();
 
 	  // If there are validation errors, throw an exception
 	  if (count($errors) > 0) throw new ValidationException($errors);

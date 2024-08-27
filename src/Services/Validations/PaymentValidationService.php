@@ -5,8 +5,9 @@ namespace App\Services\Validations;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Dto\Request\PaymentRequest;
 use Symfony\Component\Validator\ConstraintViolationList;
+use App\Contracts\Validations\ValidationServiceInterface;
 
-class PaymentValidationService
+class PaymentValidationService implements ValidationServiceInterface
 {
 	private PaymentRequest $paymentRequest;
 	private array $data;
@@ -25,7 +26,7 @@ class PaymentValidationService
 
 	/**
 	 * Validate the PaymentRequest DTO
-	 *
+	 * @param array $data
 	 * @return ConstraintViolationList
 	 */
 	public function handle(array $data): ConstraintViolationList
@@ -85,9 +86,9 @@ class PaymentValidationService
 	/**
 	 * Build the PaymentRequest DTO from the input data
 	 *
-	 * @return PaymentValidationService
+	 * @return self
 	 */
-	public function build(): PaymentValidationService
+	public function build(): self
 	{
 		// Retrieve the input arguments
 		$this->paymentRequest->amount = $this->data['amount'] ?? null;
@@ -103,9 +104,9 @@ class PaymentValidationService
 	/**
 	 * Get PaymentRequest DTO
 	 *
-	 * @return PaymentRequest
+	 * @return object
 	 */
-	public function getPaymentRequest(): PaymentRequest
+	public function getValidatedDto(): object
 	{
 		return $this->paymentRequest;
 	}
