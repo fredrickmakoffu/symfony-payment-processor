@@ -54,17 +54,6 @@ class PaymentValidationService
 	}
 
 	/**
-	 * Set errors
-	 *
-	 * @return PaymentValidationService
-	 */
-	private function setErrors(ConstraintViolationList $errors): PaymentValidationService
-	{
-		$this->errors = $errors;
-		return $this;
-	}
-
-	/**
 	 * Validate the PaymentRequest DTO
 	 *
 	 * @return ConstraintViolationList
