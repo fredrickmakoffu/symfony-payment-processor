@@ -24,12 +24,12 @@ class PaymentsController extends AbstractController
 	/**
 	 * Process the payment
 	 *
-	 * @param string $system
+	 * @param string $payment_system
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
 
-  public function process(string $system, PaymentRequest $request): Response
+  public function process(string $payment_system, PaymentRequest $request): Response
   {
    	try {
 

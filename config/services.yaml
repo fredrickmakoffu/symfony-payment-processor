@@ -26,7 +26,7 @@ services:
   App\ArgumentResolvers\PaymentRequestResolver:
     tags: ['controller.argument_value_resolver']
 
-  App\EventListeners\ValidationExceptionListener:
+  App\EventListeners\ExceptionListener:
     tags:
       - { name: 'kernel.event_listener', event: 'kernel.exception' }
 

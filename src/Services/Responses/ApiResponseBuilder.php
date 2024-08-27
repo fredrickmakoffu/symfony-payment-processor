@@ -21,7 +21,13 @@ class ApiResponseBuilder
     );
   }
 
-  public function error(string $message, array $errors = null, $httpStatusCode = JsonResponse::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
+  /**
+	 * @param string $message
+	 * @param array $errors
+	 * @param int $httpStatusCode
+	 * @return JsonResponse
+	 */
+  public function error(string $message, array $errors = [], $httpStatusCode = JsonResponse::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
   {
     return new JsonResponse(
     	new ErrorApiResponse($message, $errors),
