@@ -64,9 +64,6 @@ class PaymentValidationService
 		// Validate the PaymentRequest DTO
 		$errors = $this->validator->validate($this->paymentRequest);
 
-		// set errors
-		$this->setErrors($errors);
-
 		// return errors
 		return $this->errors;
 	}
