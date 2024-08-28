@@ -128,5 +128,3 @@ To run the tests for the application, you can use the following command:
 `docker-compose exec app ./vendor/bin/pest`
 
 This will run all the tests in the application.
-
-```
