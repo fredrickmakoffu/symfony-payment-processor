@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Dto\Request\PaymentRequest;
 use App\Services\Payments\AciPaymentProcessingService;
+use App\Services\Payments\Shift4PaymentProcessingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ class PaymentsController extends AbstractController
 		private ApiResponseBuilder $responseBuilder, // Inject the ApiResponseBuilder
 		private ValidatorInterface $validator, // Inject the ValidatorInterface
 		private AciPaymentProcessingService $aciPaymentService, // Inject the AciPaymentProcessingService
+		private Shift4PaymentProcessingService $shift4PaymentService // Inject the Shift4PaymentProcessingService
 	)
 	{}
 
@@ -32,7 +34,8 @@ class PaymentsController extends AbstractController
   {
    	try {
     	match ($payment_system) {
-				'aci' => $response = $this->aciPaymentService->process($request),
+				'aci' => $this->aciPaymentService->process($request),
+				'shift4' => $this->shift4PaymentService->process($request),
 				default => throw new \Exception('Given payment system not recognized')
 			};
     } catch (\Exception $e) {

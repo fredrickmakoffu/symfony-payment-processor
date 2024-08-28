@@ -25,7 +25,7 @@ class PaymentRequestResolver implements ArgumentValueResolverInterface
   public function resolve(Request $request, ArgumentMetadata $argument): iterable
   {
   	// Get the payment data from the request
-  	$payment_data = $request->query->all();
+  	$payment_data = json_decode($request->getContent(), true);
 
    	// Validate the PaymentRequest DTO
    	$errors = $this->paymentValidation->handle($payment_data);

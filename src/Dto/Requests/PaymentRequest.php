@@ -16,10 +16,8 @@ class PaymentRequest
     public ?string $currency;
 
     #[Assert\NotBlank]
-    #[Assert\Type(type: 'integer')]
-    #[Assert\Length(min: 16, max: 16)]
 
-    public ?int $cardNumber;
+    public int|string|null $cardNumber;
 
     #[Assert\NotBlank]
     #[Assert\Type(type: 'integer')]

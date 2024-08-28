@@ -10,7 +10,7 @@
 	    '_controller' => 'App\Controller\PaymentsController::process',
 	], [
 	    'payment_system' => implode('|', PaymentType::get()), // Restricting the parameter to specific values
-	], [], '', [], ['GET'])); // Restricting the route to POST method
+	], [], '', [], ['POST'])); // Restricting the route to POST method
 
 		return $routes;
 ?>
