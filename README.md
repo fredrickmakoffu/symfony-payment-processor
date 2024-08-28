@@ -39,14 +39,12 @@ Create a .env.local file and set your environment variables:
 `cp .env .env.local`
 
 ### Step 3: Install Dependencies
--------------------------------
 
 Run composer install to install all the dependencies required for the project:
 
 `composer install`
 
 ### Step 4: Start the Docker Containers
------------------------------------
 
 Start the Docker containers using the following command:
 
@@ -55,7 +53,6 @@ Start the Docker containers using the following command:
 The `-d` flag runs the containers in detached mode.
 
 ### Step 5: Install Composer Dependencies
-----------------------
 
 So that all third party libraries can work in your environment, you can can install them in your docker environment with this command:
 
@@ -63,7 +60,6 @@ So that all third party libraries can work in your environment, you can can inst
 
 
 ### Step 6: Test to see if application is up and running
------------------------------
 
 Once the Docker containers are up and running, you can access the application at:
 
