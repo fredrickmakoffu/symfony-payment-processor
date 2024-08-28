@@ -71,7 +71,7 @@ The following are the API endpoints available in the system:
 
 - **POST /app/example/{payment_system}**:
 	This endpoint is used to process payments. It accepts the following parameters:
-	```json
+	```
 		- `amount`: The amount to be paid
 		- `currency`: The currency to be used for the payment
 		- `cardNumber`: The card number to be used for the payment
