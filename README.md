@@ -5,7 +5,7 @@ This project is a Symfony-based payment processing system that integrates with m
 ## Table of Contents
 - [Tech Stack](#tech-stack)
 - [Setup and Installation](#setup-and-installation)
-- [Docker Configuration](#docker-configuration)
+- [API Endpoints](#api-endpoints)
 - [Routing](#routing)
 - [Validation](#validation)
 - [Payment Processing](#payment-processing)
@@ -22,7 +22,6 @@ This project is a Symfony-based payment processing system that integrates with m
 ## Setup and Installation
 
 ### Step 1: Clone the Project
--------------------------
 
 Clone your project to the server using the following command:
 
@@ -65,3 +64,47 @@ So that all third party libraries can work in your environment, you can can inst
 Once the Docker containers are up and running, you can access the application at:
 
 `http://localhost:8080`
+
+## API Endpoints
+
+The following are the API endpoints available in the system:
+
+- **POST /app/example/{payment_system}**:
+	This endpoint is used to process payments. It accepts the following parameters:
+		- `amount`: The amount to be paid
+		- `currency`: The currency to be used for the payment
+		- `cardNumber`: The card number to be used for the payment
+		- `cardExpYear`: The expiry year of the card
+		- `cardExpMonth`: The expiry month of the card
+		- `cardCvv`: The CVV of the card
+
+	You can set the payment system to either `shift4` or `aci` depending on the payment processor you want to use.
+
+	You can also set these are additional headers to your request:
+		- `Content-Type: application/json`
+		- `Accept: application/json`
+
+
+	The different payment processors require different card numbers that are already registered in their systems. Use this JSON example when testing with ACI:
+	```json
+	{
+	  "currency": "EUR",
+	  "cardNumber": "4200000000000000",
+	  "cardExpYear": "2034",
+	  "cardExpMonth": "05",
+	  "cardCvv": "123",
+	  "amount": "92.00"
+	}
+	```
+
+	Use this JSON example when testing with Shift4:
+	```json
+	{
+	  "currency": "USD",
+	  "cardNumber": "card_TvVDIl7qipdWOCRC0xXRiF0K",
+	  "cardExpYear": "2034",
+	  "cardExpMonth": "05",
+	  "cardCvv": "123",
+	  "amount": "92.00"
+	}
+	```
