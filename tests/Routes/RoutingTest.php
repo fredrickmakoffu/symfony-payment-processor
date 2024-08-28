@@ -46,7 +46,7 @@ it('should produce data in the format of the PaymentResponse DTO', function () {
 	expect($paymentResponse)->toBeInstanceOf(PaymentResponse::class);
 });
 
-it('ACI Service should route /app/example/shift4 to the correct controller', function () {
+it('should route /app/example/shift4 to the correct controller', function () {
 	$data =  [
 	  "currency" => "EUR",
 	  "cardNumber" => "card_TvVDIl7qipdWOCRC0xXRiF0K",
@@ -63,7 +63,7 @@ it('ACI Service should route /app/example/shift4 to the correct controller', fun
 	expect($response->getStatusCode())->toBe(200);
 });
 
-it('Shift4 Service should produce data in the format of the PaymentResponse DTO', function () {
+it(' should produce data in the format of the PaymentResponse DTO', function () {
 	$data =  [
 	  "currency" => "EUR",
 	  "cardNumber" => "card_TvVDIl7qipdWOCRC0xXRiF0K",

@@ -6,11 +6,8 @@ This project is a Symfony-based payment processing system that integrates with m
 - [Tech Stack](#tech-stack)
 - [Setup and Installation](#setup-and-installation)
 - [API Endpoints](#api-endpoints)
-- [Routing](#routing)
-- [Validation](#validation)
 - [Payment Processing](#payment-processing)
 - [Testing](#testing)
-- [Troubleshooting](#troubleshooting)
 
 ## Tech Stack
 - **PHP**: Version 8.0
@@ -110,3 +107,26 @@ The following are the API endpoints available in the system:
 	  "amount": "92.00"
 	}
 	```
+## Payment Processing (description)
+
+This is a quick overview of how the payment processing system works.
+
+1. The client sends a POST request to the `/app/example/{payment_system}` endpoint with the payment details.
+
+2. The request is routed to an Argument Resolver which validates the request and ensures that all the required parameters are present.
+
+3. The request is then routed to the `PaymentController` which routes the request to the appropriate payment processor service, depending on the `payment_system` parameter.
+
+4. The payment processor service then processes the payment and returns a response to the controller, formatted as a PaymentResponse object.
+
+5. The controller then returns the response to the client.
+
+## Testing
+
+To run the tests for the application, you can use the following command:
+
+`docker-compose exec app ./vendor/bin/pest`
+
+This will run all the tests in the application.
+
+```
