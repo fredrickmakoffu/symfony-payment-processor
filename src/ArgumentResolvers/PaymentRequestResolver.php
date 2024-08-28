@@ -2,7 +2,7 @@
 
 namespace App\ArgumentResolvers;
 
-use App\Dto\Request\PaymentRequest;
+use App\Dto\Requests\PaymentRequest;
 use App\Exceptions\ValidationException;
 use App\Services\Responses\ApiResponseBuilder;
 use App\Services\Validations\PaymentValidationService;

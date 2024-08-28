@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Payments;
 
-use App\Dto\Request\PaymentRequest;
+use App\Dto\Requests\PaymentRequest;
 use App\Dto\Responses\PaymentResponse;
 
 interface PaymentsProcessingInterface

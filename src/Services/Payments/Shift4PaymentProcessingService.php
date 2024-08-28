@@ -3,7 +3,7 @@
 namespace App\Services\Payments;
 
 use App\Contracts\Payments\PaymentsProcessingInterface;
-use App\Dto\Request\PaymentRequest;
+use App\Dto\Requests\PaymentRequest;
 use App\Dto\Responses\PaymentResponse;
 use App\Services\Helpers\HttpRequestServices;
 

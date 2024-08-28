@@ -17,6 +17,7 @@
         "symfony/yaml": "6.0.*"
     },
     "require-dev": {
+        "pestphp/pest": "^1.23",
         "symfony/maker-bundle": "^1.50",
         "symfony/stopwatch": "6.0.*",
         "symfony/web-profiler-bundle": "6.0.*"
@@ -25,7 +26,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "pestphp/pest-plugin": true
         },
         "optimize-autoloader": true,
         "preferred-install": {

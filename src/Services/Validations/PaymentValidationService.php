@@ -3,7 +3,7 @@
 namespace App\Services\Validations;
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\Dto\Request\PaymentRequest;
+use App\Dto\Requests\PaymentRequest;
 use Symfony\Component\Validator\ConstraintViolationList;
 use App\Contracts\Validations\ValidationServiceInterface;
 

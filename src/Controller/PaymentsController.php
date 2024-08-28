@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Dto\Request\PaymentRequest;
+use App\Dto\Requests\PaymentRequest;
 use App\Services\Payments\AciPaymentProcessingService;
 use App\Services\Payments\Shift4PaymentProcessingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

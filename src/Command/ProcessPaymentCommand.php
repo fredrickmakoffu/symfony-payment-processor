@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Dto\Request\PaymentRequest;
+use App\Dto\Requests\PaymentRequest;
 use App\Exceptions\ValidationException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
