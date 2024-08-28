@@ -34,9 +34,10 @@ You can then navigate to the project directory using the following command:
 
 ### Step 2: Set up your .env file
 
-Create a .env.local file and set your environment variables:
+Create a .env file from the .env.example file in the project. You should set the necessary Shift4 and ACI credentials in the .env file.
 
-`cp .env .env.local`
+This command will create a new .env file from the .env.example file:
+`cp .env.example .env`
 
 ### Step 3: Install Dependencies
 
