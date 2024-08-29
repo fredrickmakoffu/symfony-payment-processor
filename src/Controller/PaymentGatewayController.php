@@ -3,22 +3,21 @@
 namespace App\Controller;
 
 use App\Dto\Requests\PaymentRequest;
-use App\Services\Payments\AciPaymentProcessingService;
-use App\Services\Payments\Shift4PaymentProcessingService;
+use App\Services\Payments\AciPaymentGateway;
+use App\Services\Payments\Shift4PaymentGateway;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\Responses\ApiResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
 
-class PaymentsController extends AbstractController
+class PaymentGatewayController extends AbstractController
 {
 	public function __construct(
 		private ApiResponseBuilder $responseBuilder, // Inject the ApiResponseBuilder
 		private ValidatorInterface $validator, // Inject the ValidatorInterface
-		private AciPaymentProcessingService $aciPaymentService, // Inject the AciPaymentProcessingService
-		private Shift4PaymentProcessingService $shift4PaymentService // Inject the Shift4PaymentProcessingService
+		private AciPaymentGateway $aciPaymentService, // Inject the AciPaymentProcessingService
+		private Shift4PaymentGateway $shift4PaymentService // Inject the Shift4PaymentProcessingService
 	)
 	{}
 

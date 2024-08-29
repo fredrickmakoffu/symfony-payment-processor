@@ -2,31 +2,32 @@
 
 namespace App\Services\Payments;
 
-use App\Contracts\Payments\PaymentsProcessingInterface;
+use App\Contracts\Payments\PaymentGatewayInterface;
 use App\Dto\Requests\PaymentRequest;
 use App\Dto\Responses\PaymentResponse;
 use App\Services\Helpers\HttpRequestServices;
 
-class AciPaymentProcessingService implements PaymentsProcessingInterface
+class Shift4PaymentGateway implements PaymentGatewayInterface
 {
 	protected object $card_details;
-	protected string $aci_entity_id, $aci_authorization, $aci_api_url;
+	protected string $shift4_api_key;
+	protected string $shift4_api_url;
 
 	/**
 	 * Constructor
 	 *
 	 * @param HttpRequestServices $httpRequestServices
 	 */
+
 	public function __construct(private HttpRequestServices $httpRequestServices)
 	{
-		$this->aci_entity_id = $_ENV['ACI_ENTITY_ID'];
-		$this->aci_authorization = $_ENV['ACI_AUTHORIZATION'];
-		$this->aci_api_url = $_ENV['ACI_API_URL'];
+		$this->shift4_api_key = $_ENV['SHIFT4_API_KEY'];
+		$this->shift4_api_url = $_ENV['SHIFT4_API_URL'];
 
 		$this->card_details = (object) array(
-			"payment_brand" => "VISA",
-      "payment_type" => "PA",
-      "card_holder" => "Jane Jones"
+			"customer_id" => "cust_eTMHkN8elbg2hsnDENa9EOts",
+      "card" => "card_TvVDIl7qipdWOCRC0xXRiF0K",
+      "description" => "Payment for order #12345"
 		);
 	}
 
@@ -39,20 +40,15 @@ class AciPaymentProcessingService implements PaymentsProcessingInterface
 	public function process(PaymentRequest $paymentRequest): PaymentResponse
 	{
 		// parse the request to ACI API
-		$aci_request = $this->parseRequest($paymentRequest);
+		$shift4_request = $this->parseRequest($paymentRequest);
 
 		// set headers
-  	$headers = [
-      "Authorization: Bearer " . $this->aci_authorization
+  	$options = [
+      'auth_basic' => [$this->shift4_api_key, ''],
 	  ];
 
-		// set optional parameters
-		$options = [
-			'verify_peer' => false,
-		];
-
 		// send the request to ACI API
-		$response = $this->httpRequestServices->post($this->aci_api_url, $aci_request, $headers, $options);
+		$response = $this->httpRequestServices->post(trim($this->shift4_api_url), $shift4_request, [], $options);
 
 		if ($response->getStatusCode() !== 200 && $response->getStatusCode() !== 201) {
 			$message = $response->getContent(false);
@@ -77,14 +73,9 @@ class AciPaymentProcessingService implements PaymentsProcessingInterface
 		return array(
 			"amount" => $paymentRequest->amount,
       "currency" => $paymentRequest->currency,
-      "entityId" => $this->aci_entity_id,
-      "card.number" => $paymentRequest->cardNumber,
-      "card.expiryMonth" => $paymentRequest->cardExpMonth,
-      "card.expiryYear" => $paymentRequest->cardExpYear,
-      "card.cvv" => $paymentRequest->cardCvv,
-      "paymentBrand" => $this->card_details->payment_brand,
-      "paymentType" => $this->card_details->payment_type,
-      "card.holder" => $this->card_details->card_holder
+      "customerId" => $this->card_details->customer_id,
+      "card" => $this->card_details->card,
+      "description" => $this->card_details->description
 		);
 	}
 
@@ -100,10 +91,10 @@ class AciPaymentProcessingService implements PaymentsProcessingInterface
 		$paymentResponse = new PaymentResponse;
 
 		$paymentResponse->transaction_id = $response['id'];
-		$paymentResponse->created_at = $response['timestamp'];
+		$paymentResponse->created_at = (new \DateTime())->setTimestamp($response['created'])->format('Y-m-d H:i:s');
 		$paymentResponse->amount = $response['amount'];
 		$paymentResponse->currency = $response['currency'];
-		$paymentResponse->card_bin = $response['card']['bin'];
+		$paymentResponse->card_bin = $response['card']['last4'];
 
 		return $paymentResponse;
 	}

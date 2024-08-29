@@ -5,7 +5,7 @@ namespace App\Contracts\Payments;
 use App\Dto\Requests\PaymentRequest;
 use App\Dto\Responses\PaymentResponse;
 
-interface PaymentsProcessingInterface
+interface PaymentGatewayInterface
 {
 	/**
 	 * Process the payment

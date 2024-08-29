@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-class PaymentType
+class PaymentGatewayType
 {
     public const ACI = 'aci';
     public const SHIFT4 = 'shift4';
