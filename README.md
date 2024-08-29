@@ -8,6 +8,7 @@ This project is a Symfony-based payment processing system that integrates with m
 - [API Endpoints](#api-endpoints)
 - [Payment Processing](#payment-processing)
 - [Testing](#testing)
+- [Improvements](#improvements)
 
 ## Tech Stack
 - **PHP**: Version 8.0
@@ -128,3 +129,15 @@ To run the tests for the application, you can use the following command:
 `docker-compose exec app ./vendor/bin/pest`
 
 This will run all the tests in the application.
+
+## Improvements
+
+These are some features I would love to build in the project that are not yet implemented:
+
+- **IOC**: Implement an Inversion of Control container to manage dependencies in the application. This should allow for two immediate project improvements:
+	- We could create an argument resolver that selects the payment gateway type (aci|shift4) and injects the corresponding PaymentGatewayInterface into the controller alongside the PaymentRequest. This results in cleaner, more maintainable code.
+	- We could use the IOC container to mock the payment gateway services in our tests. This would allow us to test the controller without actually making requests to the payment gateway services.
+
+- **Storing Data in a Database**:
+	- We could store payment data in a database to allow for easier tracking and management of payments. This would also allow us to implement features such as refunds and payment history.
+	- We could also log any requests and responses to the payment gateway services in the database. This would allow us to track any issues that may arise during payment processing.
