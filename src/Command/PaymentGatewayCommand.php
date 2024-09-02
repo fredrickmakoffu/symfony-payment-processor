@@ -4,6 +4,8 @@ namespace App\Command;
 
 use App\Dto\Requests\PaymentRequest;
 use App\Exceptions\ValidationException;
+use App\Services\Payments\AciPaymentGateway;
+use App\Services\Payments\Shift4PaymentGateway;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,9 +21,13 @@ use App\Services\Validations\PaymentValidationService;
     description: 'Add a short description for your command',
 )]
 
-class ProcessPaymentCommand extends Command
+class PaymentGatewayCommand extends Command
 {
-	public function __construct(private PaymentValidationService $paymentValidation)
+	public function __construct(
+		private PaymentValidationService $paymentValidation,
+		private AciPaymentGateway $aciPaymentService,
+		private Shift4PaymentGateway $shift4PaymentService
+	)
 	{
 	  parent::__construct();
 	}
@@ -52,7 +58,14 @@ class ProcessPaymentCommand extends Command
         // If there are validation errors, throw an exception
         if (count($errors) > 0) throw new ValidationException($errors);
 
+        $request = $this->paymentValidation->getValidatedDto();
+
 				// Process the payment
+			 	match ($payment_data['system']) {
+					'aci' => $this->aciPaymentService->process($request),
+					'shift4' => $this->shift4PaymentService->process($request),
+					default => throw new \Exception('Given payment system not recognized')
+				};
 
 				// return success
 				$io->success('Payment processed successfully.');

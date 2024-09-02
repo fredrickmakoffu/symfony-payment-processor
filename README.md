@@ -122,6 +122,19 @@ This is a quick overview of how the payment processing system works.
 
 5. The controller then returns the response to the client.
 
+The same process is largely repeated when you make a payment through the PaymentGatewayCommand. The only difference is that the command is run from the command line and not through an HTTP request.
+
+1. The client runs the command `php bin/console app:process-payment {payment_system} {amount} {currency} {cardNumber} {cardExpYear} {cardExpMonth} {cardCvv}` with the payment details.
+
+2. We validate the request and ensure that all the required parameters are present and in the format we require
+
+3. We process the payment	and return a response to the client.
+
+
+
+``
+php bin/console app:process-payment shift4 92.00 USD 4200000000000000 2034 05 123
+``
 ## Testing
 
 To run the tests for the application, you can use the following command:
